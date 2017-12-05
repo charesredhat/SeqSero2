@@ -9,7 +9,7 @@ setup(
     description = ("Serotyping for Salmonella."),
     license = "GPL-2.0",
     keywords = "salmonella",
-    url = "https://github.com/CFSAN-Biostatistics/SeqSero2",
+    url = "https://github.com/charesredhat/SeqSero2",
     packages=['seqsero2'],
     scripts=['scripts/SeqSero2.py'],
      entry_points={
