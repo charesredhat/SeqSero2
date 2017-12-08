@@ -1,0 +1,62 @@
+<tool id="seqsero_v2" name="seqsero_v2" version="2.0">
+    <requirements>
+      <requirement type="package" version="2.7">python</requirement>
+      <requirement type="package">biopython</requirement>
+      <requirement type="package">blast</requirement>
+      <requirement type="package">samtools</requirement>
+      <requirement type="package">sra-tools</requirement>
+      <requirement type="package">bwa</requirement>
+      <requirement type="package">spades</requirement>
+      <requirement type="package">bedtools</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+     
+        ln -s $fastq1 sample_1.fastq;  
+        ln -s $fastq2 sample_2.fastq;  
+ 
+
+      $__tool_directory__/SeqSero2.py
+      -p $numofthr
+      -i sample_1.fastq sample_2.fastq
+      -b $maptype; 
+      cat  SeqSero_result*/Seqsero_result.txt > results.txt; 
+
+    ]]></command>
+    <inputs>
+      
+        <param name="numofthr" type="select" label="Number of threads">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+           <option value="4">4</option>
+        </param>
+      
+      
+          <param name="fastq1" type="data" format="fastq" label="FASTQ" />
+          <param name="fastq2" type="data" format="fastq" label="FASTQ" />
+    
+        <param name="maptype" type="select" label="Algorithms for BWA mapping?">
+          <option value="sam">sam</option>
+          <option value="mem">mem</option>
+        </param>
+    
+
+    </inputs>
+    <outputs>
+      <data format="txt" label="SeqSero Results" name="results" from_work_dir="results.txt"/>
+    </outputs>
+    <help><![CDATA[
+
+    ]]></help>
+    <citations>
+       <citation type="bibtex">
+        @misc{zhang_yin_jones_zhang_deathrage_dinsmore_fitzgeral_fields_deng_2015,
+        title={Salmonella serotype determination utilizing high-throughput genome sequencing data.},
+        journal={J Clin Microbiol}, publisher={ASM},
+        author={Zhang S, Yin Y, Jones MB, Zhang Z, Deatherage Kaiser BL, Dinsmore BA, Fitzgerald C, Fields PI, Deng X.},
+        year={2015}, month={Max},
+        url={http://http://jcm.asm.org/content/early/2015/03/05/JCM.00323-15}},
+       }</citation>
+    </citations>
+
+</tool>
