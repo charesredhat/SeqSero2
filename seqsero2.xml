@@ -11,9 +11,8 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
      
-        ln -s $fastq1 sample_1.fastq;  
-        ln -s $fastq2 sample_2.fastq;  
- 
+      ln -s $fastq1 sample_1.fastq;  
+      ln -s $fastq2 sample_2.fastq;  
 
       $__tool_directory__/SeqSero2.py
       -p $numofthr
@@ -24,20 +23,20 @@
     ]]></command>
     <inputs>
       
-        <param name="numofthr" type="select" label="Number of threads">
+        
+      
+     
+          <param name="fastq1" type="data" format="fastq" label="FASTQ paired end read 1" />
+          <param name="fastq2" type="data" format="fastq" label="FASTQ paired end read 2" />
+          <param name="numofthr" type="select" label="Number of threads">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-           <option value="4">4</option>
+          <option value="4">4</option>
         </param>
-      
-      
-          <param name="fastq1" type="data" format="fastq" label="FASTQ" />
-          <param name="fastq2" type="data" format="fastq" label="FASTQ" />
-    
         <param name="maptype" type="select" label="Algorithms for BWA mapping?">
-          <option value="sam">sam</option>
           <option value="mem">mem</option>
+          <option value="sam">sam</option>
         </param>
     
 
@@ -45,8 +44,23 @@
     <outputs>
       <data format="txt" label="SeqSero Results" name="results" from_work_dir="results.txt"/>
     </outputs>
+    <tests>
+       <test>
+         <output name="results" file="results.txt"/>
+       </test>
+    </tests>
     <help><![CDATA[
+    
+**Usage: SeqSero2.py** 
 
+**Number of threads**
+
+The range is 1 through 4, only 4 threads will be used for assembly since the amount of extracted reads is small, default=1
+
+**Algorithms for BWA mapping**
+
+'mem' for mem, 'sam' for samse/sampe; default=mem; optional; for now SeqSero2 is only optimized for "mem" mode
+   
     ]]></help>
     <citations>
        <citation type="bibtex">
